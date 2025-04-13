@@ -1,0 +1,38 @@
+doctype html
+html
+  head
+    title Admin - Manage Menu
+    link(rel="stylesheet", href="/style.css")
+  body
+    h1 Menu Items
+    each item in menuItems
+      div(class=item.isAvailableToday ? "item today" : "item")
+        h2= item.name
+        p= item.description
+        p Price: $#{item.price.toFixed(2)}
+        p Ingredients: #{item.ingredients}
+        if item.dayOfWeek
+          p Assigned Day: #{item.dayOfWeek}
+        else
+          p Not yet assigned to a day
+        if item.isAvailableToday
+          p Special of the Day
+        else
+          form(action=`/admin/menu/today/${item._id}` method="POST")
+            button(type="submit") Set as Daily Special
+
+        //- Assign day of week
+        form(action=`/admin/menu/assign-day/${item._id}` method="POST")
+          label(for="day") Assign to day of week:
+          select(name="dayOfWeek")
+            option(value="") -- Choose --
+            option(value="Monday") Monday
+            option(value="Tuesday") Tuesday
+            option(value="Wednesday") Wednesday
+            option(value="Thursday") Thursday
+            option(value="Friday") Friday
+            option(value="Saturday") Saturday
+            option(value="Sunday") Sunday
+          button(type="submit") Save
+    br
+    a(href="/admin/dashboard") ← Back to Dashboard

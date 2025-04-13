@@ -1,0 +1,13 @@
+extends layout
+
+block home
+    h1 Cura Admin Login
+    p Please enter your credentials to access the admin panel.
+    form(action="/admin/login" method="POST")
+      label(for="username") Username:
+      input(type="text" name="username" required)
+      br
+      label(for="password") Password:
+      input(type="password" name="password" required)
+      br
+      button(type="submit") Login
